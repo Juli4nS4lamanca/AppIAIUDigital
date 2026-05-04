@@ -1,0 +1,19 @@
+Quiero construir un Agente de Voz Conversacional (Minimal Viable Agent) en Python 3.11+ utilizando exclusivamente asyncio. El objetivo es implementar una arquitectura de Pipeline asíncrono similar a Pipecat para entender el flujo de baja latencia.
+
+Especificaciones Técnicas:
+
+Arquitectura de Datos: Uso de asyncio.Queue para comunicar cuatro módulos independientes: MicrophoneSource, STTProcessor, LLMProcessor, y TTSSpeaker.
+
+Pipeline de Streaming:
+
+Input: Captura de audio por chunks (PCM 16kHz).
+
+VAD: Implementar un detector de actividad de voz simple (ej. webrtcvad) para segmentar el audio antes del STT.
+
+STT/TTS: Interfaces agnósticas (inicialmente OpenAI Whisper/Azure/Deepgram). El TTS debe soportar streaming de audio por fragmentos.
+
+LLM: Invocación en modo streaming para procesar tokens a medida que se generan.
+
+Lógica de Interrupción: Capacidad de detectar audio del usuario durante la fase de salida (playback) y cancelar inmediatamente las tareas de TTS pendientes para reiniciar el loop.
+
+Requisito de Código: Estructura modular basada en clases, evitando variables globales y manejando correctamente el ciclo de vida de las tareas de asyncio.

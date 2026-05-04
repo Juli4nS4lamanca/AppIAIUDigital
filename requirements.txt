@@ -1,0 +1,6 @@
+asyncio
+sounddevice
+numpy
+openai
+python-dotenv
+webrtcvad
