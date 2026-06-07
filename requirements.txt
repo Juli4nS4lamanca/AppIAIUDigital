@@ -3,4 +3,4 @@ sounddevice
 numpy
 openai
 python-dotenv
-webrtcvad
+edge-tts

@@ -1,4 +1,6 @@
 import asyncio
+import os
+from dotenv import load_dotenv
 from app.core.pipeline import Pipeline
 from app.modules.microphone import MicrophoneSource
 from app.modules.vad import VADProcessor
@@ -6,8 +8,16 @@ from app.modules.stt import STTProcessor
 from app.modules.llm import LLMProcessor
 from app.modules.tts import TTSSpeaker
 
+# Cargamos el archivo de configuración .env
+load_dotenv()
+
 async def main():
     print("Inicializando Minimal Viable Agent (MVA) Pipeline...")
+    
+    # Validamos si existe la API Key configurada
+    api_key = os.getenv("IA_API_KEY") or os.getenv("OPENAI_API_KEY")
+    if not api_key:
+        print("[ADVERTENCIA] No se detectó ninguna clave de API en 'IA_API_KEY' o 'OPENAI_API_KEY'. Las llamadas fallarán.")
     
     # 1. Crear el pipeline principal
     pipeline = Pipeline()
